@@ -1,0 +1,53 @@
+% \errorcontextlines 99999
+\documentclass{article}
+
+\usepackage{lilly-dir}
+
+\usepackage{fontawesome}
+
+\begin{document}
+This is an example tree:
+
+\begin{fancydir}
+[Toplevel
+    [Level 1, dir=green!80!black
+        [Level 2
+            [Level 3]
+            [Another file, cfile={purple}{X}]
+        ]
+        [Level 2
+            [Level 3, ldir={\faApple}]
+            [\ldots]
+        ]
+        [Readme.md, ifile]
+    ]
+    [Level 1, idir
+        [Level 2]
+        [test.tex, file]
+    ]
+]
+\end{fancydir}
+
+Same-Indent example:
+
+\SetFolderFileSameIndent
+\begin{fancydir}
+    [Toplevel
+        [Level 1, dir=green!80!black
+            [Level 2
+                [Level 3]
+                [Another file, cfile={purple}{X}]
+            ]
+            [Level 2
+                [Level 3, ldir={\faApple}]
+                [\ldots]
+            ]
+            [Readme.md, ifile]
+        ]
+        [Level 1, idir
+            [Level 2]
+            [test.tex, file]
+        ]
+    ]
+    \end{fancydir}
+\end{document}
