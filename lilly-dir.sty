@@ -242,9 +242,10 @@
 %% --------------------------------------------------------------------------
 
 \environbodyname\ldir@treecollect@env% forest uses \BODY too. collision prevention over 9000
+\def\fancydirwidth{\linewidth}
 \bracketset{action character=@}
 \NewEnviron{fancydir}{%
-\parbox{1\linewidth}{% this ensures the correct width
+\parbox{\fancydirwidth}{% this ensures the correct width
 \begin{forest}%
     pic dir tree,%
     pic root,%

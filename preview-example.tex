@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\usepackage{fontawesome,lilly-dir}
+
+\usepackage[active,tightpage]{preview}
+
+\PreviewEnvironment{fancydir}
+
+\def\fancydirwidth{4.25cm}
+
+\begin{document}
+\begin{fancydir}
+    [Toplevel
+        [Level 1, dir=green!80!black
+            [Level 2
+                [Level 3]
+                [Another file, cfile={magenta}{X}]
+            ]
+            [Level 2
+                [Level 3, ldir={\faApple}]
+                [\ldots]
+            ]
+            [Readme.md, ifile]
+        ]
+        [Level 1, idir
+            [Level 2]
+            [test.tex, file]
+        ]
+    ]
+    \end{fancydir}
+\end{document}
