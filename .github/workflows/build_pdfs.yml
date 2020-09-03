@@ -28,6 +28,7 @@ jobs:
       
       - name: Generate preview image
         run: |
+          sudo apt-get install poppler-utils
           pdftoppm -png -r 600 preview-example.pdf > preview-example.png
 
       - name: Commit PDF
