@@ -30,7 +30,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f preview-examle.pdf lilly-dir.pdf
+          git add -f preview-example.pdf lilly-dir.pdf
           git commit -m "Update PDFs by workflow"
           
       - name: Push changes
