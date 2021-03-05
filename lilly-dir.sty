@@ -1,6 +1,6 @@
 %% lilly-dir.sty
 %%
-%% --------------------------------------------------------------------------
+%% ---------
 %%
 %% Autor: Florian Sihler, 05.08.2020
 %%
@@ -11,17 +11,15 @@
 
 \ProvidesPackage{lilly-dir}[2020/08/05 v1.0.0 Visualization of folder-structures in LaTeX]
 
-%% --------------------------------------------------------------------------
 %% Packages
-%% --------------------------------------------------------------------------
+%% ---------
 
 \catcode`\"=12
 \RequirePackage[edges]{forest}
 \RequirePackage{environ}
 
-%% --------------------------------------------------------------------------
 %% Default-Colors
-%% --------------------------------------------------------------------------
+%% ---------
 
 \definecolor{folderbg}{RGB}{0,149,182}
 \definecolor{ifolderbg}{RGB}{215,10,83}
@@ -30,29 +28,26 @@
 \colorlet{filebg}{folderbg}
 \colorlet{ifilebg}{ifolderbg}
 
-%% --------------------------------------------------------------------------
 %% Registers
-%% --------------------------------------------------------------------------
+%% ---------
 
 \newlength\ldir@len@folder@size
-\setlength\ldir@len@folder@size{4pt}
+\ldir@len@folder@size=4pt
 
 \def\ldir@folderindent{2.6}
 \def\ldir@fileindent{1.75}
 
 \def\ldir@font{}
 
-%% --------------------------------------------------------------------------
 %% Indent-Control
-%% --------------------------------------------------------------------------
+%% ---------
 
 \def\SetFolderFileSameIndent{%
     \gdef\ldir@fileindent{\ldir@folderindent}
 }
 
-%% --------------------------------------------------------------------------
 %% Drawer
-%% --------------------------------------------------------------------------
+%% ---------
 
 % #1 light color
 % #2 darker color
@@ -77,10 +72,10 @@
 % #4 logo, if empty => bars
 \def\@ldir@td@file#1#2#3#4{%
 \begin{scope}[every node/.style={overlay}]
-  \fill[fill=#1!85!#3, rounded corners=0.9pt] (-\ldir@len@folder@size,.6*\ldir@len@folder@size+2.75pt) coordinate (a) |- (\ldir@len@folder@size,-1.2*\ldir@len@folder@size) coordinate (b) to[rounded corners=0pt] ++(0,1.8*\ldir@len@folder@size) coordinate (c) to[rounded corners=0pt,] ++(-2.75pt,2.75pt) coordinate (d) -- cycle;
+  \fill[fill=#1!85!#3, rounded corners=0.9pt] (-\ldir@len@folder@size,.6*\ldir@len@folder@size+2.75pt) coordinate (a) |- (\ldir@len@folder@size,-1.2*\ldir@len@folder@size) coordinate (b) to[rounded corners=\z@] ++(0,1.8*\ldir@len@folder@size) coordinate (c) to[rounded corners=\z@] ++(-2.75pt,2.75pt) coordinate (d) -- cycle;
   \fill[fill=#3!65!#1, rounded corners=0.9pt] (d) |- (c);
   % Set Text Bars:
-  \ifx\\#4\\
+  \ifx!#4!
   \foreach \y/\fx in {0/1,0.2/1,0.4/1,0.6/0.75} {%
     \fill[#3] (-0.5\ldir@len@folder@size,-\y*\ldir@len@folder@size) rectangle ++ (\fx*\ldir@len@folder@size,0.4pt);
   }
@@ -88,9 +83,8 @@
 \end{scope}
 }
 
-%% --------------------------------------------------------------------------
 %% Tikz and Forest-Options
-%% --------------------------------------------------------------------------
+%% ---------
 
 \tikzset{%
   folder/.pic={%
@@ -185,9 +179,8 @@
   create symbol pic key={cfile}{complexfile}{filebg}{\ldir@fileindent}{$\mathbf{\pi}$}, % colored file with logo option
 }
 
-%% --------------------------------------------------------------------------
 %% User-Commands to configure new Folder and File-Types
-%% --------------------------------------------------------------------------
+%% ---------
 
 \DeclareDocumentCommand{\CreateNewFolderType}{
     o           % Color
@@ -237,9 +230,8 @@
   }
 }
 
-%% --------------------------------------------------------------------------
 %% The main environment
-%% --------------------------------------------------------------------------
+%% ---------
 
 \environbodyname\ldir@treecollect@env% forest uses \BODY too. collision prevention over 9000
 \def\fancydirwidth{\linewidth}
@@ -249,7 +241,7 @@
 \begin{forest}%
     pic dir tree,%
     pic root,%
-    for tree={dir,}%
+    for tree={dir}%
     @\ldir@treecollect@env
 \end{forest}%
 }}%
