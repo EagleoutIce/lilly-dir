@@ -1,26 +1,19 @@
 %% lilly-dir.sty
-%%
-%% ---------
-%%
-%% Autor: Florian Sihler, 05.08.2020
+%% Author: Florian Sihler, 05.08.2020
 %%
 %% This package is a standalone version from the fancy-dir
 %% environment integrated into lilly. It contains some optimizations.
-
 % All internal commands are prefixed by 'ldir'
-
 \ProvidesPackage{lilly-dir}[2020/08/05 v1.0.0 Visualization of folder-structures in LaTeX]
 
 %% Packages
 %% ---------
-
 \catcode`\"=12
 \RequirePackage[edges]{forest}
 \RequirePackage{environ}
 
 %% Default-Colors
 %% ---------
-
 \definecolor{folderbg}{RGB}{0,149,182}
 \definecolor{ifolderbg}{RGB}{215,10,83}
 \definecolor{ld@white}{RGB}{245,245,243}
@@ -30,29 +23,19 @@
 
 %% Registers
 %% ---------
-
 \newlength\ldir@len@folder@size
 \ldir@len@folder@size=4pt
-
 \def\ldir@folderindent{2.6}
 \def\ldir@fileindent{1.75}
-
 \def\ldir@font{}
 
 %% Indent-Control
 %% ---------
-
-\def\SetFolderFileSameIndent{%
-    \gdef\ldir@fileindent{\ldir@folderindent}
-}
+\def\SetFolderFileSameIndent{\def\ldir@fileindent{\ldir@folderindent}}
 
 %% Drawer
 %% ---------
-
-% #1 light color
-% #2 darker color
-% #3 white color
-% #4 Icon
+% #1 light color #2 darker color #3 white color #4 Icon
 \def\@ldir@td@folder#1#2#3#4{%
     \begin{scope}[every node/.style={overlay}]
   \fill[rounded corners=0.5pt, color=#2]% peak
@@ -66,10 +49,7 @@
   \end{scope}
 }
 
-% #1 light color
-% #2 darker color
-% #3 white color
-% #4 logo, if empty => bars
+% #1 light color #2 darker color #3 white color #4 logo, if empty => bars
 \def\@ldir@td@file#1#2#3#4{%
 \begin{scope}[every node/.style={overlay}]
   \fill[fill=#1!85!#3, rounded corners=0.9pt] (-\ldir@len@folder@size,.6*\ldir@len@folder@size+2.75pt) coordinate (a) |- (\ldir@len@folder@size,-1.2*\ldir@len@folder@size) coordinate (b) to[rounded corners=\z@] ++(0,1.8*\ldir@len@folder@size) coordinate (c) to[rounded corners=\z@] ++(-2.75pt,2.75pt) coordinate (d) -- cycle;
@@ -85,7 +65,6 @@
 
 %% Tikz and Forest-Options
 %% ---------
-
 \tikzset{%
   folder/.pic={%
         \@ldir@td@folder{#1}{#1!85}{ld@white}{}%
@@ -99,8 +78,6 @@
         code ={\@ldir@td@folder{#1}{#1!85}{ld@white}{#2}}%
   },
   pics/complexfolder/.default={folderbg}{$\pi$},
-  %
-  %
   %
   file/.pic={%
         \@ldir@td@file{#1}{#1!85}{ld@white}{}%
@@ -142,10 +119,7 @@
       }{},
     },
   },
-  % #1 style name
-  % #2 pic name
-  % #3 color default
-  % #4 offset
+  % #1 style name #2 pic name #3 color default #4 offset
   create pic key/.code n args=4{%
     \forestset{%
       #1/.style={%
@@ -155,11 +129,7 @@
       #1/.default=#3,
     }
   },
-  % #1 style name
-  % #2 pic name
-  % #3 color default
-  % #4 offset
-  % #5 default symbol
+  % #1 style name #2 pic name #3 color default #4 offset #5 default symbol
   create symbol pic key/.code n args=5{%
     \forestset{%
       #1/.style n args=2{%
@@ -181,11 +151,10 @@
 
 %% User-Commands to configure new Folder and File-Types
 %% ---------
-
-\DeclareDocumentCommand{\CreateNewFolderType}{
-    o           % Color
-    m           % Name
-    O{}         % icon
+\DeclareDocumentCommand\CreateNewFolderType{
+    o   % Color
+    m   % Name
+    O{} % icon
 }{%
   \IfValueTF{#1}{
     \forestset{%
@@ -206,10 +175,10 @@
   }
 }
 
-\DeclareDocumentCommand{\CreateNewFileType}{
-    o           % Color
-    m           % Name
-    O{}         % icon
+\DeclareDocumentCommand\CreateNewFileType{
+    o   % Color
+    m   % Name
+    O{} % icon
 }{%
   \IfValueTF{#1}{%
     \forestset{%
@@ -232,16 +201,13 @@
 
 %% The main environment
 %% ---------
-
 \environbodyname\ldir@treecollect@env% forest uses \BODY too. collision prevention over 9000
 \def\fancydirwidth{\linewidth}
 \bracketset{action character=@}
 \NewEnviron{fancydir}{%
 \parbox{\fancydirwidth}{% this ensures the correct width
 \begin{forest}%
-    pic dir tree,%
-    pic root,%
-    for tree={dir}%
+    pic dir tree,pic root,for tree={dir}%
     @\ldir@treecollect@env
 \end{forest}%
 }}%
