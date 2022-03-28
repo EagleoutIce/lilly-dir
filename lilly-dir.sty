@@ -31,30 +31,30 @@
 %% Drawer
 % #1 light color #2 darker color #3 white color #4 Icon
 \def\@ldir@td@folder#1#2#3#4{%
-    \begin{scope}[every node/.style={overlay}]
-  \fill[rounded corners=.5pt, color=#2]% peak
+    \scope[every node/.style={overlay}]
+  \path[fill,rounded corners=.5pt, color=#2]% peak
   (-1*\ldir@len@folder@size,-\ldir@len@folder@size) rectangle (1.85*\ldir@len@folder@size,\ldir@len@folder@size+2pt);
-\fill[rounded corners=.5pt, color=#2]% back
+\path[fill,rounded corners=.5pt, color=#2]% back
   (-1*\ldir@len@folder@size,-\ldir@len@folder@size) rectangle (.35*\ldir@len@folder@size,\ldir@len@folder@size+3.25pt);
-\fill[rounded corners=.5pt, color=#3]% doc
+\path[fill,rounded corners=.5pt, color=#3]% doc
   (-.8*\ldir@len@folder@size,-\ldir@len@folder@size) rectangle (1.65*\ldir@len@folder@size,\ldir@len@folder@size+1.25pt);
-\filldraw[rounded corners=.5pt, color=#1, ultra thin]% front
+\path[fill,draw,rounded corners=.5pt, color=#1, ultra thin]% front
   (-1*\ldir@len@folder@size,-\ldir@len@folder@size) rectangle (1.85*\ldir@len@folder@size,\ldir@len@folder@size) node[midway, centered,#3,font={\tiny\sffamily}] {#4};
-  \end{scope}
+  \endscope
 }
 
 % #1 light color #2 darker color #3 white color #4 logo, if empty => bars
 \def\@ldir@td@file#1#2#3#4{%
-\begin{scope}[every node/.style={overlay}]
-  \fill[fill=#1!85!#3, rounded corners=.9pt] (-\ldir@len@folder@size,.6*\ldir@len@folder@size+2.75pt) coordinate (a) |- (\ldir@len@folder@size,-1.2*\ldir@len@folder@size) coordinate (b) to[rounded corners=\z@] ++(0,1.8*\ldir@len@folder@size) coordinate (c) to[rounded corners=\z@] ++(-2.75pt,2.75pt) coordinate (d) -- cycle;
-  \fill[fill=#3!65!#1, rounded corners=.9pt] (d) |- (c);
+\scope[every node/.style={overlay}]
+  \path[fill=#1!85!#3, rounded corners=.9pt] (-\ldir@len@folder@size,.6*\ldir@len@folder@size+2.75pt) coordinate (a) |- (\ldir@len@folder@size,-1.2*\ldir@len@folder@size) coordinate (b) to[rounded corners=\z@] ++(0,1.8*\ldir@len@folder@size) coordinate (c) to[rounded corners=\z@] ++(-2.75pt,2.75pt) coordinate (d) -- cycle;
+  \path[fill=#3!65!#1, rounded corners=.9pt] (d) |- (c);
   % Set Text Bars:
   \ifx!#4!
   \foreach \y/\fx in {0/1,.2/1,.4/1,.6/.75} {%
-    \fill[#3] (-.5\ldir@len@folder@size,-\y*\ldir@len@folder@size) rectangle ++ (\fx*\ldir@len@folder@size,.4pt);
+    \path[fill,#3] (-.5\ldir@len@folder@size,-\y*\ldir@len@folder@size) rectangle ++ (\fx*\ldir@len@folder@size,.4pt);
   }
   \else\node[#3,font={\tiny\sffamily},overlay] at(0,-.25\ldir@len@folder@size) {#4};\fi % absatz für den knick
-\end{scope}
+\endscope
 }
 
 %% Tikz and Forest-Options
